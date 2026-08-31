@@ -96,3 +96,7 @@ location.reload();
 - **Modelos como clases**: `Project`, `Task`, `Bug` y `Developer` validan sus propios datos y exponen getters derivados (ej. `project.isOverdue`, `task.hoursVariance`).
 - **Módulos ES6** separados por responsabilidad (modelos / servicios / componentes / utilidades) en vez de un único archivo.
 - **Chart.js vendored localmente** en `assets/vendor` para que el proyecto funcione sin conexión a un CDN externo.
+
+---
+
+Proyecto desarrollado por **Matías Torres Sandoval** como pieza de portafolio — Ingeniero Civil Informático (UNAB).
