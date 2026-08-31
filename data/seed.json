@@ -1,0 +1,125 @@
+{
+  "developers": [
+    { "id": "dev-1", "name": "Camila Reyes", "role": "Frontend Lead", "avatarColor": "#5B8DEF", "productivity": 92 },
+    { "id": "dev-2", "name": "Matías Soto", "role": "Backend Developer", "avatarColor": "#7C6FE8", "productivity": 87 },
+    { "id": "dev-3", "name": "Florencia Muñoz", "role": "Fullstack Developer", "avatarColor": "#3DD68C", "productivity": 95 },
+    { "id": "dev-4", "name": "Joaquín Pizarro", "role": "QA Engineer", "avatarColor": "#F0B429", "productivity": 81 },
+    { "id": "dev-5", "name": "Valentina Castro", "role": "DevOps Engineer", "avatarColor": "#E5484D", "productivity": 88 }
+  ],
+  "projects": [
+    {
+      "id": "proj-1",
+      "name": "Nimbus Payments",
+      "client": "Banco Andes",
+      "startDate": "2026-03-01",
+      "endDate": "2026-08-15",
+      "status": "En progreso",
+      "priority": "Alta",
+      "color": "#5B8DEF",
+      "progress": 62
+    },
+    {
+      "id": "proj-2",
+      "name": "Helios CRM",
+      "client": "Retail Sur",
+      "startDate": "2026-01-10",
+      "endDate": "2026-07-01",
+      "status": "En progreso",
+      "priority": "Media",
+      "color": "#7C6FE8",
+      "progress": 78
+    },
+    {
+      "id": "proj-3",
+      "name": "Atlas Logistics",
+      "client": "TransCarga SpA",
+      "startDate": "2026-05-01",
+      "endDate": "2026-12-20",
+      "status": "Planificación",
+      "priority": "Alta",
+      "color": "#F0B429",
+      "progress": 12
+    },
+    {
+      "id": "proj-4",
+      "name": "Vesper Analytics",
+      "client": "DataMine Chile",
+      "startDate": "2025-11-01",
+      "endDate": "2026-06-30",
+      "status": "Revisión",
+      "priority": "Media",
+      "color": "#3DD68C",
+      "progress": 91
+    },
+    {
+      "id": "proj-5",
+      "name": "Orbit Booking",
+      "client": "Viajes Cono Sur",
+      "startDate": "2025-09-15",
+      "endDate": "2026-04-30",
+      "status": "Completado",
+      "priority": "Baja",
+      "color": "#8B92A5",
+      "progress": 100
+    },
+    {
+      "id": "proj-6",
+      "name": "Forge ERP",
+      "client": "Manufacturas Maipo",
+      "startDate": "2026-06-01",
+      "endDate": "2027-01-15",
+      "status": "Planificación",
+      "priority": "Crítica",
+      "color": "#E5484D",
+      "progress": 5
+    }
+  ],
+  "tasks": [
+    { "id": "task-1", "name": "Integrar pasarela de pago Webpay", "projectId": "proj-1", "assigneeId": "dev-2", "status": "En progreso", "priority": "Alta", "estimatedHours": 24, "actualHours": 18, "dueDate": "2026-06-25" },
+    { "id": "task-2", "name": "Diseñar flujo de onboarding", "projectId": "proj-1", "assigneeId": "dev-1", "status": "Completada", "priority": "Media", "estimatedHours": 16, "actualHours": 14, "dueDate": "2026-06-10" },
+    { "id": "task-3", "name": "Migrar autenticación a JWT rotativo", "projectId": "proj-1", "assigneeId": "dev-3", "status": "En progreso", "priority": "Alta", "estimatedHours": 20, "actualHours": 22, "dueDate": "2026-06-28" },
+    { "id": "task-4", "name": "Configurar pipeline CI/CD", "projectId": "proj-1", "assigneeId": "dev-5", "status": "Pendiente", "priority": "Media", "estimatedHours": 12, "actualHours": 0, "dueDate": "2026-07-02" },
+    { "id": "task-5", "name": "Dashboard de leads en tiempo real", "projectId": "proj-2", "assigneeId": "dev-3", "status": "En progreso", "priority": "Alta", "estimatedHours": 30, "actualHours": 26, "dueDate": "2026-06-24" },
+    { "id": "task-6", "name": "Exportación de reportes a Excel", "projectId": "proj-2", "assigneeId": "dev-2", "status": "Completada", "priority": "Baja", "estimatedHours": 10, "actualHours": 9, "dueDate": "2026-06-05" },
+    { "id": "task-7", "name": "Refactor de módulo de contactos", "projectId": "proj-2", "assigneeId": "dev-1", "status": "En revisión", "priority": "Media", "estimatedHours": 18, "actualHours": 19, "dueDate": "2026-06-22" },
+    { "id": "task-8", "name": "Definir arquitectura de microservicios", "projectId": "proj-3", "assigneeId": "dev-5", "status": "En progreso", "priority": "Alta", "estimatedHours": 16, "actualHours": 8, "dueDate": "2026-06-30" },
+    { "id": "task-9", "name": "Levantar requerimientos con cliente", "projectId": "proj-3", "assigneeId": "dev-4", "status": "Completada", "priority": "Media", "estimatedHours": 8, "actualHours": 8, "dueDate": "2026-06-12" },
+    { "id": "task-10", "name": "Prototipo de ruteo de flotas", "projectId": "proj-3", "assigneeId": "dev-3", "status": "Pendiente", "priority": "Baja", "estimatedHours": 20, "actualHours": 0, "dueDate": "2026-07-10" },
+    { "id": "task-11", "name": "Optimizar queries de reportería", "projectId": "proj-4", "assigneeId": "dev-2", "status": "Completada", "priority": "Alta", "estimatedHours": 14, "actualHours": 16, "dueDate": "2026-06-08" },
+    { "id": "task-12", "name": "Pruebas de carga del pipeline ETL", "projectId": "proj-4", "assigneeId": "dev-4", "status": "En revisión", "priority": "Media", "estimatedHours": 12, "actualHours": 11, "dueDate": "2026-06-20" },
+    { "id": "task-13", "name": "Documentación técnica final", "projectId": "proj-4", "assigneeId": "dev-1", "status": "Pendiente", "priority": "Baja", "estimatedHours": 6, "actualHours": 0, "dueDate": "2026-06-29" },
+    { "id": "task-14", "name": "Checklist de entrega y handoff", "projectId": "proj-5", "assigneeId": "dev-5", "status": "Completada", "priority": "Media", "estimatedHours": 10, "actualHours": 10, "dueDate": "2026-04-28" },
+    { "id": "task-15", "name": "Levantamiento de procesos de inventario", "projectId": "proj-6", "assigneeId": "dev-4", "status": "Pendiente", "priority": "Crítica", "estimatedHours": 20, "actualHours": 0, "dueDate": "2026-07-05" },
+    { "id": "task-16", "name": "Setup inicial de monorepo", "projectId": "proj-6", "assigneeId": "dev-3", "status": "En progreso", "priority": "Alta", "estimatedHours": 8, "actualHours": 4, "dueDate": "2026-06-26" }
+  ],
+  "bugs": [
+    { "id": "bug-1", "description": "El botón de pago no responde en Safari iOS", "priority": "Crítica", "status": "Abierto", "date": "2026-06-18", "projectId": "proj-1" },
+    { "id": "bug-2", "description": "Tokens JWT no rotan tras refresh", "priority": "Alta", "status": "En progreso", "date": "2026-06-17", "projectId": "proj-1" },
+    { "id": "bug-3", "description": "Onboarding se salta el paso 2 en mobile", "priority": "Media", "status": "Resuelto", "date": "2026-06-09", "projectId": "proj-1" },
+    { "id": "bug-4", "description": "Leads duplicados al filtrar por región", "priority": "Alta", "status": "Abierto", "date": "2026-06-19", "projectId": "proj-2" },
+    { "id": "bug-5", "description": "Exportación Excel corta columnas con tildes", "priority": "Baja", "status": "Resuelto", "date": "2026-06-04", "projectId": "proj-2" },
+    { "id": "bug-6", "description": "Contactos eliminados reaparecen tras sync", "priority": "Crítica", "status": "En progreso", "date": "2026-06-20", "projectId": "proj-2" },
+    { "id": "bug-7", "description": "Diagrama de arquitectura desactualizado vs. infra real", "priority": "Media", "status": "Abierto", "date": "2026-06-15", "projectId": "proj-3" },
+    { "id": "bug-8", "description": "Query de reportería excede timeout con +50k filas", "priority": "Alta", "status": "Resuelto", "date": "2026-06-07", "projectId": "proj-4" },
+    { "id": "bug-9", "description": "ETL falla silenciosamente si falta un campo opcional", "priority": "Crítica", "status": "Resuelto", "date": "2026-06-11", "projectId": "proj-4" },
+    { "id": "bug-10", "description": "Inconsistencia de unidades en inventario (kg vs. unidades)", "priority": "Media", "status": "Abierto", "date": "2026-06-20", "projectId": "proj-6" }
+  ],
+  "events": [
+    { "id": "evt-1", "title": "Entrega MVP Nimbus Payments", "type": "entrega", "date": "2026-06-25", "projectId": "proj-1" },
+    { "id": "evt-2", "title": "Reunión de seguimiento con Banco Andes", "type": "reunion", "date": "2026-06-23", "projectId": "proj-1" },
+    { "id": "evt-3", "title": "Fecha límite módulo de contactos", "type": "limite", "date": "2026-06-22", "projectId": "proj-2" },
+    { "id": "evt-4", "title": "Demo Helios CRM a Retail Sur", "type": "reunion", "date": "2026-06-26", "projectId": "proj-2" },
+    { "id": "evt-5", "title": "Kickoff Atlas Logistics", "type": "reunion", "date": "2026-06-24", "projectId": "proj-3" },
+    { "id": "evt-6", "title": "Entrega final Vesper Analytics", "type": "entrega", "date": "2026-06-30", "projectId": "proj-4" },
+    { "id": "evt-7", "title": "Fecha límite levantamiento Forge ERP", "type": "limite", "date": "2026-07-05", "projectId": "proj-6" },
+    { "id": "evt-8", "title": "Retro de cierre Orbit Booking", "type": "reunion", "date": "2026-06-29", "projectId": "proj-5" }
+  ],
+  "weeklyProductivity": [
+    { "week": "Sem 1", "completedTasks": 14, "hoursLogged": 132 },
+    { "week": "Sem 2", "completedTasks": 18, "hoursLogged": 145 },
+    { "week": "Sem 3", "completedTasks": 11, "hoursLogged": 118 },
+    { "week": "Sem 4", "completedTasks": 21, "hoursLogged": 156 },
+    { "week": "Sem 5", "completedTasks": 17, "hoursLogged": 140 },
+    { "week": "Sem 6", "completedTasks": 23, "hoursLogged": 162 }
+  ]
+}

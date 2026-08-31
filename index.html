@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark" data-font-size="md">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>DevBoard — Dashboard de Analítica para Desarrolladores</title>
+<meta name="description" content="DevBoard: administra proyectos, tareas y bugs, y visualiza métricas de productividad de tu equipo de desarrollo." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="./css/tokens.css">
+<link rel="stylesheet" href="./css/base.css">
+<link rel="stylesheet" href="./css/layout.css">
+<link rel="stylesheet" href="./css/components.css">
+<link rel="stylesheet" href="./css/animations.css">
+</head>
+<body>
+
+<div id="toast-container" aria-live="polite"></div>
+
+<div class="app-shell" id="app-shell">
+
+  <!-- ===================== SIDEBAR ===================== -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">
+      <div class="sidebar__logo">D</div>
+      <span class="sidebar__brand-name">DevBoard</span>
+    </div>
+
+    <nav class="sidebar__nav" id="sidebar-nav">
+      <span class="sidebar__section-label">General</span>
+      <a href="#dashboard" class="nav-link" data-view="dashboard">
+        <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3" width="6" height="7" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="3" width="6" height="4" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="11" y="9" width="6" height="8" rx="1.5" stroke="currentColor" stroke-width="1.5"/><rect x="3" y="12" width="6" height="5" rx="1.5" stroke="currentColor" stroke-width="1.5"/></svg>
+        <span class="nav-link__label">Dashboard</span>
+      </a>
+      <a href="#projects" class="nav-link" data-view="projects">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M3 6a1 1 0 0 1 1-1h3.5l1.5 2H16a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        <span class="nav-link__label">Proyectos</span>
+      </a>
+      <a href="#tasks" class="nav-link" data-view="tasks">
+        <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="3.5" width="14" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 8h7M6.5 11.5h4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="nav-link__label">Tareas</span>
+      </a>
+      <a href="#bugs" class="nav-link" data-view="bugs">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="11" r="5" stroke="currentColor" stroke-width="1.5"/><path d="M10 6V4M7 6.5 5.5 5M13 6.5 14.5 5M3.5 11h2M14.5 11h2M6 15l-1.5 1.5M14 15l1.5 1.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="nav-link__label">Bugs</span>
+      </a>
+
+      <span class="sidebar__section-label">Análisis</span>
+      <a href="#stats" class="nav-link" data-view="stats">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M4 16V9M10 16V4M16 16v-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="nav-link__label">Estadísticas</span>
+      </a>
+      <a href="#timeline" class="nav-link" data-view="timeline">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h9M3 15h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="nav-link__label">Timeline</span>
+      </a>
+      <a href="#calendar" class="nav-link" data-view="calendar">
+        <svg viewBox="0 0 20 20" fill="none"><rect x="3" y="4" width="14" height="13" rx="2" stroke="currentColor" stroke-width="1.5"/><path d="M3 8h14M7 2.5v3M13 2.5v3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="nav-link__label">Calendario</span>
+      </a>
+
+      <span class="sidebar__section-label">Cuenta</span>
+      <a href="#settings" class="nav-link" data-view="settings">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="10" r="2.6" stroke="currentColor" stroke-width="1.5"/><path d="M10 3.5v1.6M10 14.9v1.6M16.5 10h-1.6M5.1 10H3.5M14.6 5.4l-1.1 1.1M6.5 13.5l-1.1 1.1M14.6 14.6l-1.1-1.1M6.5 6.5 5.4 5.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="nav-link__label">Configuración</span>
+      </a>
+      <a href="#profile" class="nav-link" data-view="profile">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="10" cy="7" r="3" stroke="currentColor" stroke-width="1.5"/><path d="M4 16.5c0-2.8 2.7-4.5 6-4.5s6 1.7 6 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <span class="nav-link__label">Perfil</span>
+      </a>
+    </nav>
+
+    <div class="sidebar__footer">
+      <button class="sidebar__collapse-btn" id="collapse-btn" type="button" aria-label="Colapsar menú">
+        <svg viewBox="0 0 20 20" fill="none" width="18" height="18"><path d="M12.5 4.5 7 10l5.5 5.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <span class="nav-link__label">Colapsar</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- ===================== MAIN ===================== -->
+  <div class="main">
+
+    <!-- ===================== TOPBAR ===================== -->
+    <header class="topbar">
+      <button class="icon-btn" id="mobile-menu-btn" type="button" aria-label="Abrir menú" style="display:none;">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+
+      <button class="topbar__search" id="open-palette-btn" type="button">
+        <svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="M16 16l-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        <span>Buscar proyectos, bugs, tareas...</span>
+        <span class="topbar__search-kbd">Ctrl K</span>
+      </button>
+
+      <div class="topbar__actions">
+        <button class="icon-btn" id="export-btn" type="button" aria-label="Exportar datos" title="Exportar datos">
+          <svg viewBox="0 0 20 20" fill="none"><path d="M10 3v9.5M6.5 9 10 12.5 13.5 9" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 14.5v1A1.5 1.5 0 0 0 5.5 17h9a1.5 1.5 0 0 0 1.5-1.5v-1" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+        </button>
+        <button class="icon-btn" id="theme-toggle-btn" type="button" aria-label="Cambiar tema" title="Cambiar tema">
+          <svg id="theme-icon" viewBox="0 0 20 20" fill="none"><path d="M17 11.5A7 7 0 1 1 8.5 3a5.6 5.6 0 0 0 8.5 8.5Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="topbar__profile" id="profile-shortcut-btn" type="button">
+          <div class="avatar" id="topbar-avatar" style="background:#5B8DEF;">MT</div>
+        </button>
+      </div>
+    </header>
+
+    <!-- ===================== VIEW: DASHBOARD ===================== -->
+    <section class="view is-active" id="view-dashboard" data-view="dashboard">
+      <div class="view__header">
+        <div>
+          <h1 class="view__title">Dashboard</h1>
+          <p class="view__subtitle">Resumen general del estado de tus proyectos y equipo</p>
+        </div>
+        <div class="view__actions">
+          <button class="btn btn--primary" id="dashboard-new-project-btn" type="button">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Nuevo proyecto
+          </button>
+        </div>
+      </div>
+
+      <div class="grid-cards" id="metrics-grid"></div>
+
+      <div class="grid-2col">
+        <div class="chart-card">
+          <div class="chart-card__header">
+            <div>
+              <div class="chart-card__title">Productividad semanal</div>
+              <div class="chart-card__subtitle">Tareas completadas y horas registradas por semana</div>
+            </div>
+          </div>
+          <div class="chart-card__body"><canvas id="chart-weekly-productivity"></canvas></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card__header">
+            <div>
+              <div class="chart-card__title">Distribución de tareas</div>
+              <div class="chart-card__subtitle">Por estado actual</div>
+            </div>
+          </div>
+          <div class="chart-card__body"><canvas id="chart-task-distribution"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== VIEW: PROYECTOS ===================== -->
+    <section class="view" id="view-projects" data-view="projects">
+      <div class="view__header">
+        <div>
+          <h1 class="view__title">Proyectos</h1>
+          <p class="view__subtitle">Administra el estado, prioridad y avance de cada proyecto</p>
+        </div>
+        <div class="view__actions">
+          <button class="btn btn--secondary" id="projects-export-btn" type="button">Exportar</button>
+          <button class="btn btn--primary" id="projects-new-btn" type="button">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Nuevo proyecto
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="filter-bar__search">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 13l-2.5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input type="text" id="projects-search" placeholder="Buscar por nombre o cliente...">
+        </div>
+        <div class="filter-bar__divider"></div>
+        <select class="select-control" id="projects-filter-client"><option value="">Cliente</option></select>
+        <select class="select-control" id="projects-filter-status"><option value="">Estado</option></select>
+        <select class="select-control" id="projects-filter-priority"><option value="">Prioridad</option></select>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th data-sort="name">Proyecto<span class="sort-arrow">▾</span></th>
+              <th data-sort="client">Cliente<span class="sort-arrow">▾</span></th>
+              <th data-sort="startDate">Inicio<span class="sort-arrow">▾</span></th>
+              <th data-sort="endDate">Término<span class="sort-arrow">▾</span></th>
+              <th data-sort="status">Estado<span class="sort-arrow">▾</span></th>
+              <th data-sort="priority">Prioridad<span class="sort-arrow">▾</span></th>
+              <th>Avance</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="projects-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== VIEW: TAREAS ===================== -->
+    <section class="view" id="view-tasks" data-view="tasks">
+      <div class="view__header">
+        <div>
+          <h1 class="view__title">Tareas</h1>
+          <p class="view__subtitle">Asigna, prioriza y controla horas estimadas vs. reales</p>
+        </div>
+        <div class="view__actions">
+          <button class="btn btn--secondary" id="tasks-export-btn" type="button">Exportar</button>
+          <button class="btn btn--primary" id="tasks-new-btn" type="button">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Nueva tarea
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="filter-bar__search">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 13l-2.5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input type="text" id="tasks-search" placeholder="Buscar tarea...">
+        </div>
+        <div class="filter-bar__divider"></div>
+        <select class="select-control" id="tasks-filter-project"><option value="">Proyecto</option></select>
+        <select class="select-control" id="tasks-filter-status"><option value="">Estado</option></select>
+        <select class="select-control" id="tasks-filter-priority"><option value="">Prioridad</option></select>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th data-sort="name">Tarea<span class="sort-arrow">▾</span></th>
+              <th data-sort="projectId">Proyecto<span class="sort-arrow">▾</span></th>
+              <th data-sort="assigneeId">Responsable<span class="sort-arrow">▾</span></th>
+              <th data-sort="status">Estado<span class="sort-arrow">▾</span></th>
+              <th data-sort="priority">Prioridad<span class="sort-arrow">▾</span></th>
+              <th data-sort="estimatedHours">Est.<span class="sort-arrow">▾</span></th>
+              <th data-sort="actualHours">Real<span class="sort-arrow">▾</span></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="tasks-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== VIEW: BUGS ===================== -->
+    <section class="view" id="view-bugs" data-view="bugs">
+      <div class="view__header">
+        <div>
+          <h1 class="view__title">Bugs</h1>
+          <p class="view__subtitle">Registro de incidencias por proyecto</p>
+        </div>
+        <div class="view__actions">
+          <button class="btn btn--secondary" id="bugs-export-btn" type="button">Exportar</button>
+          <button class="btn btn--primary" id="bugs-new-btn" type="button">
+            <svg viewBox="0 0 16 16" fill="none"><path d="M8 3v10M3 8h10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+            Nuevo bug
+          </button>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <div class="filter-bar__search">
+          <svg viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"/><path d="M13 13l-2.5-2.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <input type="text" id="bugs-search" placeholder="Buscar bug...">
+        </div>
+        <div class="filter-bar__divider"></div>
+        <select class="select-control" id="bugs-filter-project"><option value="">Proyecto</option></select>
+        <select class="select-control" id="bugs-filter-status"><option value="">Estado</option></select>
+        <select class="select-control" id="bugs-filter-priority"><option value="">Prioridad</option></select>
+      </div>
+
+      <div class="table-wrap">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th data-sort="description">Descripción<span class="sort-arrow">▾</span></th>
+              <th data-sort="projectId">Proyecto<span class="sort-arrow">▾</span></th>
+              <th data-sort="priority">Prioridad<span class="sort-arrow">▾</span></th>
+              <th data-sort="status">Estado<span class="sort-arrow">▾</span></th>
+              <th data-sort="date">Fecha<span class="sort-arrow">▾</span></th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody id="bugs-table-body"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== VIEW: ESTADÍSTICAS ===================== -->
+    <section class="view" id="view-stats" data-view="stats">
+      <div class="view__header">
+        <div>
+          <h1 class="view__title">Estadísticas</h1>
+          <p class="view__subtitle">Métricas agregadas de todos los proyectos</p>
+        </div>
+      </div>
+
+      <div class="grid-charts">
+        <div class="chart-card">
+          <div class="chart-card__header">
+            <div>
+              <div class="chart-card__title">Productividad semanal</div>
+              <div class="chart-card__subtitle">Tareas completadas por semana</div>
+            </div>
+          </div>
+          <div class="chart-card__body"><canvas id="stats-chart-productivity"></canvas></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card__header">
+            <div>
+              <div class="chart-card__title">Horas trabajadas</div>
+              <div class="chart-card__subtitle">Total semanal registrado por el equipo</div>
+            </div>
+          </div>
+          <div class="chart-card__body"><canvas id="stats-chart-hours"></canvas></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card__header">
+            <div>
+              <div class="chart-card__title">Bugs por proyecto</div>
+              <div class="chart-card__subtitle">Total de incidencias registradas</div>
+            </div>
+          </div>
+          <div class="chart-card__body"><canvas id="stats-chart-bugs-project"></canvas></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card__header">
+            <div>
+              <div class="chart-card__title">Proyectos activos</div>
+              <div class="chart-card__subtitle">Distribución por estado</div>
+            </div>
+          </div>
+          <div class="chart-card__body"><canvas id="stats-chart-projects-status"></canvas></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card__header">
+            <div>
+              <div class="chart-card__title">Tiempo promedio de resolución</div>
+              <div class="chart-card__subtitle">Días promedio para resolver un bug, por prioridad</div>
+            </div>
+          </div>
+          <div class="chart-card__body"><canvas id="stats-chart-resolution-time"></canvas></div>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-card__header">
+            <div>
+              <div class="chart-card__title">Distribución de tareas</div>
+              <div class="chart-card__subtitle">Por estado actual</div>
+            </div>
+          </div>
+          <div class="chart-card__body"><canvas id="stats-chart-task-distribution"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== VIEW: TIMELINE ===================== -->
+    <section class="view" id="view-timeline" data-view="timeline">
+      <div class="view__header">
+        <div>
+          <h1 class="view__title">Timeline</h1>
+          <p class="view__subtitle">Avance de cada proyecto respecto a su plazo</p>
+        </div>
+      </div>
+      <div class="timeline" id="timeline-container"></div>
+    </section>
+
+    <!-- ===================== VIEW: CALENDARIO ===================== -->
+    <section class="view" id="view-calendar" data-view="calendar">
+      <div class="view__header">
+        <div>
+          <h1 class="view__title">Calendario</h1>
+          <p class="view__subtitle">Entregas, reuniones y fechas límite</p>
+        </div>
+      </div>
+      <div class="calendar" id="calendar-container"></div>
+    </section>
+
+    <!-- ===================== VIEW: CONFIGURACIÓN ===================== -->
+    <section class="view" id="view-settings" data-view="settings">
+      <div class="view__header">
+        <div>
+          <h1 class="view__title">Configuración</h1>
+          <p class="view__subtitle">Personaliza la apariencia de DevBoard</p>
+        </div>
+      </div>
+
+      <div class="card card--padded" style="max-width:560px;">
+        <div class="settings-row">
+          <div>
+            <div class="settings-row__label">Tema oscuro</div>
+            <div class="settings-row__desc">Alterna entre tema claro y oscuro</div>
+          </div>
+          <button class="theme-toggle" id="settings-theme-toggle" type="button" aria-label="Alternar tema">
+            <span class="theme-toggle__thumb"></span>
+          </button>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <div class="settings-row__label">Idioma</div>
+            <div class="settings-row__desc">Idioma de la interfaz</div>
+          </div>
+          <div class="segmented" id="settings-language">
+            <button class="segmented__option is-active" data-value="es" type="button">Español</button>
+            <button class="segmented__option" data-value="en" type="button">English</button>
+          </div>
+        </div>
+
+        <div class="settings-row">
+          <div>
+            <div class="settings-row__label">Tamaño de fuente</div>
+            <div class="settings-row__desc">Ajusta el tamaño de texto de toda la app</div>
+          </div>
+          <div class="segmented" id="settings-font-size">
+            <button class="segmented__option" data-value="sm" type="button">A-</button>
+            <button class="segmented__option is-active" data-value="md" type="button">A</button>
+            <button class="segmented__option" data-value="lg" type="button">A+</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== VIEW: PERFIL ===================== -->
+    <section class="view" id="view-profile" data-view="profile">
+      <div class="view__header">
+        <div>
+          <h1 class="view__title">Perfil</h1>
+          <p class="view__subtitle">Tu información dentro del equipo</p>
+        </div>
+      </div>
+
+      <div class="card profile-card" style="max-width:340px;" id="profile-card"></div>
+    </section>
+
+  </div>
+</div>
+
+<!-- ===================== MODAL: FORMULARIO GENÉRICO ===================== -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal" role="dialog" aria-modal="true" id="modal">
+    <div class="modal__header">
+      <h2 class="modal__title" id="modal-title">Título</h2>
+      <button class="modal__close" id="modal-close-btn" type="button" aria-label="Cerrar">
+        <svg viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+    <div class="modal__body" id="modal-body"></div>
+    <div class="modal__footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<!-- ===================== COMMAND PALETTE (CTRL+K) ===================== -->
+<div class="palette-overlay" id="palette-overlay">
+  <div class="palette">
+    <div class="palette__input-row">
+      <svg viewBox="0 0 20 20" fill="none"><circle cx="9" cy="9" r="5.5" stroke="currentColor" stroke-width="1.6"/><path d="M16 16l-3-3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <input type="text" id="palette-input" placeholder="Buscar proyectos, clientes, bugs, desarrolladores...">
+    </div>
+    <div class="palette__results" id="palette-results"></div>
+    <div class="palette__footer">
+      <span><kbd>↑↓</kbd>Navegar</span>
+      <span><kbd>↵</kbd>Seleccionar</span>
+      <span><kbd>Esc</kbd>Cerrar</span>
+    </div>
+  </div>
+</div>
+
+<script src="./assets/vendor/chart.umd.min.js"></script>
+<script type="module" src="./js/app.js"></script>
+</body>
+</html>
