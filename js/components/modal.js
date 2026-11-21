@@ -8,6 +8,7 @@ import { qs } from '../utils/dom.js';
 
 let overlay, modal, titleEl, bodyEl, footerEl, closeBtn;
 let onCloseCallback = null;
+let lastFocusedElement = null;
 
 export function initModal() {
   overlay = qs('#modal-overlay');
@@ -27,12 +28,14 @@ export function initModal() {
 }
 
 export function openModal({ title, bodyHtml, footerHtml, onMount, onClose }) {
+  lastFocusedElement = document.activeElement;
   titleEl.textContent = title;
   bodyEl.innerHTML = bodyHtml;
   footerEl.innerHTML = footerHtml || '';
   onCloseCallback = onClose || null;
 
   overlay.classList.add('is-open');
+  document.body.classList.add('is-modal-locked');
 
   if (typeof onMount === 'function') {
     // Esperar un frame para que el DOM del modal ya esté insertado.
@@ -45,5 +48,12 @@ export function openModal({ title, bodyHtml, footerHtml, onMount, onClose }) {
 
 export function closeModal() {
   overlay.classList.remove('is-open');
+  document.body.classList.remove('is-modal-locked');
   if (typeof onCloseCallback === 'function') onCloseCallback();
+
+  // Devolver el foco al elemento que abrió el modal.
+  if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+    setTimeout(() => lastFocusedElement.focus(), 0);
+  }
+  lastFocusedElement = null;
 }

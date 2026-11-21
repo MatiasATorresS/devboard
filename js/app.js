@@ -37,15 +37,41 @@ export function navigateTo(viewName) {
   if (!VIEW_RENDERERS[viewName]) viewName = 'dashboard';
 
   qsa('.view').forEach((el) => el.classList.toggle('is-active', el.dataset.view === viewName));
-  qsa('.nav-link').forEach((el) => el.classList.toggle('is-active', el.dataset.view === viewName));
+  qsa('.nav-link').forEach((el) => {
+    const isActive = el.dataset.view === viewName;
+    el.classList.toggle('is-active', isActive);
+    if (isActive) el.setAttribute('aria-current', 'page');
+    else el.removeAttribute('aria-current');
+  });
+
+  // Mobile bottom nav active state
+  qsa('.mobile-nav__item').forEach((el) => {
+    const isActive = el.dataset.view === viewName;
+    el.classList.toggle('is-active', isActive);
+    if (isActive) el.setAttribute('aria-current', 'page');
+    else el.removeAttribute('aria-current');
+  });
 
   const renderer = VIEW_RENDERERS[viewName];
   if (renderer) renderer();
 
   // Cerrar sidebar en mobile tras navegar.
-  qs('#app-shell').classList.remove('is-sidebar-open');
+  setSidebarOpen(false);
 
   window.history.replaceState(null, '', `#${viewName}`);
+}
+
+/**
+ * Abre/cierra el drawer lateral en móvil y bloquea el scroll del body
+ * mientras está abierto.
+ */
+function setSidebarOpen(open) {
+  const shell = qs('#app-shell');
+  if (!shell) return;
+  shell.classList.toggle('is-sidebar-open', open);
+  document.body.classList.toggle('is-locked', open);
+  const btn = qs('#mobile-menu-btn');
+  if (btn) btn.setAttribute('aria-expanded', String(open));
 }
 
 function initNavigation() {
@@ -54,6 +80,11 @@ function initNavigation() {
       e.preventDefault();
       navigateTo(link.dataset.view);
     });
+  });
+
+  // Mobile bottom nav
+  qsa('.mobile-nav__item').forEach((btn) => {
+    btn.addEventListener('click', () => navigateTo(btn.dataset.view));
   });
 
   qs('#profile-shortcut-btn').addEventListener('click', () => navigateTo('profile'));
@@ -66,6 +97,7 @@ function initSidebarCollapse() {
   const shell = qs('#app-shell');
   const collapseBtn = qs('#collapse-btn');
   const mobileMenuBtn = qs('#mobile-menu-btn');
+  const backdrop = qs('#sidebar-backdrop');
 
   const collapsed = localStorage.getItem('devboard:sidebar-collapsed') === 'true';
   shell.classList.toggle('is-collapsed', collapsed);
@@ -75,16 +107,33 @@ function initSidebarCollapse() {
     localStorage.setItem('devboard:sidebar-collapsed', String(isCollapsed));
   });
 
-  function checkMobile() {
-    const isMobile = window.innerWidth <= 880;
-    mobileMenuBtn.style.display = isMobile ? 'flex' : 'none';
-  }
-  checkMobile();
-  window.addEventListener('resize', checkMobile);
+  // Tooltip nativo para el modo colapsado (solo se ven los íconos).
+  qsa('.nav-link').forEach((link) => {
+    const label = link.querySelector('.nav-link__label')?.textContent.trim();
+    if (label) link.title = label;
+  });
 
   mobileMenuBtn.addEventListener('click', () => {
-    shell.classList.toggle('is-sidebar-open');
+    setSidebarOpen(!shell.classList.contains('is-sidebar-open'));
   });
+
+  // Cierra el sidebar tocando el backdrop en mobile
+  backdrop?.addEventListener('click', () => setSidebarOpen(false));
+
+  // Escape cierra el drawer
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && shell.classList.contains('is-sidebar-open')) {
+      setSidebarOpen(false);
+    }
+  });
+
+  // Al volver a escritorio, asegurar que el drawer quede cerrado.
+  const mobileQuery = window.matchMedia('(max-width: 880px)');
+  const handleViewportChange = (event) => {
+    if (!event.matches) setSidebarOpen(false);
+  };
+  if (mobileQuery.addEventListener) mobileQuery.addEventListener('change', handleViewportChange);
+  else mobileQuery.addListener(handleViewportChange);
 }
 
 function initGlobalExport() {

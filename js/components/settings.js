@@ -25,6 +25,12 @@ function applySettingsToDOM(settings) {
   document.documentElement.setAttribute('data-theme', settings.theme);
   document.documentElement.setAttribute('data-font-size', settings.fontSize);
 
+  // Barra del navegador en móvil a juego con el tema.
+  const themeMeta = document.getElementById('theme-color-meta');
+  if (themeMeta) {
+    themeMeta.setAttribute('content', settings.theme === 'dark' ? '#080A10' : '#F1F3F8');
+  }
+
   const themeIcon = qs('#theme-icon');
   if (themeIcon) {
     themeIcon.innerHTML = settings.theme === 'dark'

@@ -84,10 +84,24 @@ export function renderCalendar() {
       .map((e) => `<div class="calendar__event calendar__event--${e.type}" title="${escapeHtml(e.title)}">${escapeHtml(e.title)}</div>`)
       .join('');
 
+    // En móvil los eventos se muestran como puntos de color.
+    const dotsHtml = events.length
+      ? `<div class="calendar__dots" aria-hidden="true">${events
+          .slice(0, 4)
+          .map((e) => `<span class="calendar__dot calendar__dot--${e.type}"></span>`)
+          .join('')}</div>`
+      : '';
+
+    const eventLabel = events.length
+      ? `, ${events.length} evento${events.length > 1 ? 's' : ''}`
+      : '';
+    const ariaLabel = `${day} de ${MONTHS_ES[month]}${eventLabel}`;
+
     return `
-      <div class="calendar__day ${muted ? 'is-muted' : ''} ${isToday ? 'is-today' : ''}">
+      <div class="calendar__day ${muted ? 'is-muted' : ''} ${isToday ? 'is-today' : ''}" aria-label="${ariaLabel}">
         <span class="calendar__day-number">${day}</span>
         ${eventsHtml}
+        ${dotsHtml}
       </div>
     `;
   }).join('');

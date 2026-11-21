@@ -59,18 +59,18 @@ function renderRow(project) {
 
   return `
     <tr data-id="${project.id}">
-      <td>
+      <td data-label="Proyecto">
         <div class="cell-primary">
           <span class="color-dot" style="background:${project.color}"></span>
           ${escapeHtml(project.name)}
         </div>
       </td>
-      <td>${escapeHtml(project.client)}</td>
-      <td class="numeric">${formatShortDate(project.startDate)}</td>
-      <td class="numeric">${formatShortDate(project.endDate)}</td>
-      <td><span class="badge badge--${STATUS_BADGE[project.status] || 'neutral'}">${project.status}</span></td>
-      <td><span class="badge badge--${PRIORITY_BADGE[project.priority] || 'neutral'}">${project.priority}</span></td>
-      <td style="min-width:120px;">
+      <td data-label="Cliente">${escapeHtml(project.client)}</td>
+      <td class="numeric" data-label="Inicio">${formatShortDate(project.startDate)}</td>
+      <td class="numeric" data-label="Término">${formatShortDate(project.endDate)}</td>
+      <td data-label="Estado"><span class="badge badge--${STATUS_BADGE[project.status] || 'neutral'}">${project.status}</span></td>
+      <td data-label="Prioridad"><span class="badge badge--${PRIORITY_BADGE[project.priority] || 'neutral'}">${project.priority}</span></td>
+      <td data-label="Avance" style="min-width:120px;">
         <div class="progress-bar">
           <div class="progress-bar__fill" style="width:${project.progress}%; background:${project.color};"></div>
         </div>

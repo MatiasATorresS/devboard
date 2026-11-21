@@ -44,11 +44,11 @@ function renderRow(bug) {
 
   return `
     <tr data-id="${bug.id}">
-      <td style="max-width:340px;"><div class="cell-primary">${escapeHtml(bug.description)}</div></td>
-      <td>${project ? `<span class="color-dot" style="background:${project.color}"></span>${escapeHtml(project.name)}` : '—'}</td>
-      <td><span class="badge badge--${PRIORITY_BADGE[bug.priority] || 'neutral'}">${bug.priority}</span></td>
-      <td><span class="badge badge--${STATUS_BADGE[bug.status] || 'neutral'}">${bug.status}</span></td>
-      <td class="numeric">${formatShortDate(bug.date)}</td>
+      <td class="cell-truncate" data-label="Descripción"><div class="cell-primary">${escapeHtml(bug.description)}</div></td>
+      <td data-label="Proyecto">${project ? `<span class="cell-inline"><span class="color-dot" style="background:${project.color}"></span>${escapeHtml(project.name)}</span>` : '—'}</td>
+      <td data-label="Prioridad"><span class="badge badge--${PRIORITY_BADGE[bug.priority] || 'neutral'}">${bug.priority}</span></td>
+      <td data-label="Estado"><span class="badge badge--${STATUS_BADGE[bug.status] || 'neutral'}">${bug.status}</span></td>
+      <td class="numeric" data-label="Fecha">${formatShortDate(bug.date)}</td>
       <td>
         <div class="row-actions">
           <button class="icon-btn btn--sm" data-action="edit" title="Editar" aria-label="Editar bug">

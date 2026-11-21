@@ -3,13 +3,22 @@
  * Animaciones globales y transición suave entre tema oscuro/claro.
  */
 
-/* Transición de tema: aplica a todos los elementos con color/fondo */
-body, .sidebar, .topbar, .card, .metric-card, .chart-card, .calendar,
-.timeline, .table-wrap, .modal, .palette, .filter-bar, .toast,
-.icon-btn, .nav-link, .calendar__day, input, select, textarea {
-  transition: background-color var(--duration-base) var(--ease-standard),
-              border-color var(--duration-base) var(--ease-standard),
-              color var(--duration-base) var(--ease-standard);
+/*
+ * Transición de tema.
+ * Se usa :where() para que tenga especificidad 0 y NO sobreescriba las
+ * transiciones propias de cada componente (por ejemplo, el ancho del
+ * sidebar colapsable).
+ */
+:where(
+  body, .sidebar, .topbar, .card, .metric-card, .chart-card, .calendar,
+  .timeline, .table-wrap, .modal, .palette, .filter-bar, .toast,
+  .icon-btn, .nav-link, .calendar__day, input, select, textarea,
+  .mobile-nav, .sidebar-backdrop, .data-table thead, .data-table tbody tr,
+  .settings-row, .segmented, .topbar__search, .mobile-nav__item
+) {
+  transition-property: background-color, border-color, color, box-shadow;
+  transition-duration: var(--duration-base);
+  transition-timing-function: var(--ease-standard);
 }
 
 @keyframes fade-in {
@@ -18,8 +27,13 @@ body, .sidebar, .topbar, .card, .metric-card, .chart-card, .calendar,
 }
 
 @keyframes scale-in {
-  from { opacity: 0; transform: scale(0.96); }
+  from { opacity: 0; transform: scale(0.95); }
   to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slide-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 @keyframes pulse-dot {
@@ -31,10 +45,13 @@ body, .sidebar, .topbar, .card, .metric-card, .chart-card, .calendar,
   animation: pulse-dot 2s ease-in-out infinite;
 }
 
-/* Stagger sutil para las cards del dashboard */
-.metric-card:nth-child(1) { animation-delay: 0ms; }
-.metric-card:nth-child(2) { animation-delay: 40ms; }
-.metric-card:nth-child(3) { animation-delay: 80ms; }
-.metric-card:nth-child(4) { animation-delay: 120ms; }
-.metric-card:nth-child(5) { animation-delay: 160ms; }
-.metric-card:nth-child(6) { animation-delay: 200ms; }
+/* Scroll suave en toda la app */
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

@@ -51,17 +51,17 @@ function renderRow(task) {
 
   return `
     <tr data-id="${task.id}">
-      <td><div class="cell-primary">${escapeHtml(task.name)}</div></td>
-      <td>${project ? `<span class="color-dot" style="background:${project.color}"></span>${escapeHtml(project.name)}` : '—'}</td>
-      <td>
+      <td data-label="Tarea"><div class="cell-primary">${escapeHtml(task.name)}</div></td>
+      <td data-label="Proyecto">${project ? `<span class="cell-inline"><span class="color-dot" style="background:${project.color}"></span>${escapeHtml(project.name)}</span>` : '—'}</td>
+      <td data-label="Responsable">
         ${assignee
           ? `<div class="avatar-stack"><div class="avatar" style="background:${assignee.avatarColor}">${assignee.initials}</div>${escapeHtml(assignee.name)}</div>`
           : '<span style="color:var(--text-tertiary)">Sin asignar</span>'}
       </td>
-      <td><span class="badge badge--${STATUS_BADGE[task.status] || 'neutral'}">${task.status}</span></td>
-      <td><span class="badge badge--${PRIORITY_BADGE[task.priority] || 'neutral'}">${task.priority}</span></td>
-      <td class="numeric">${task.estimatedHours}h</td>
-      <td class="numeric" style="color:${overHours ? 'var(--danger)' : 'inherit'}">${task.actualHours}h</td>
+      <td data-label="Estado"><span class="badge badge--${STATUS_BADGE[task.status] || 'neutral'}">${task.status}</span></td>
+      <td data-label="Prioridad"><span class="badge badge--${PRIORITY_BADGE[task.priority] || 'neutral'}">${task.priority}</span></td>
+      <td class="numeric" data-label="Est.">${task.estimatedHours}h</td>
+      <td class="numeric" data-label="Real" style="color:${overHours ? 'var(--danger)' : 'inherit'}">${task.actualHours}h</td>
       <td>
         <div class="row-actions">
           <button class="icon-btn btn--sm" data-action="edit" title="Editar" aria-label="Editar ${escapeHtml(task.name)}">
